@@ -18,7 +18,7 @@ package com.pbe;
 // For example to pass a primitive type by reference to a method or to use data structures to store primitive types.
 // This is possible by using a 'type wrapper', which are classes that encapsulate a primitive type within an object.
 // Available type wrappers: Character, Boolean, Byte, Short, Integer, Long, Float, and Double
-// 
+//
 // Character
 // Is a wrapper around a char.
 // Originally used the -as per JDK 9 deprecated- constructor: Character(char ch)
@@ -46,6 +46,17 @@ package com.pbe;
 // All of the type wrappers override toString(), returning the human-readable form of the value contained within the wrapper.
 // This way, a value can be outputted by passing a type wrapper object to println(), without having to convert it into its primitive type.
 
+// Autoboxing
+// Since JDK5, Java offers autoboxing and auto-unboxing.
+// Autoboxing is the automatic conversion that the Java compiler makes between the primitive types and their corresponding object wrapper classes.
+// If the conversion goes the other way, this is called unboxing.
+// It is not necessary to manually construct an object in order to wrap a primitive type. The value only needs to be assigned to a type-wrapper reference.
+// Example of the simplest form of autoboxing: Character ch = 'a'; or Integer iOb = 100;
+// Auto(un)boxing helps streamline (algorithms) code, help prevent errors and are very important to generics.
+// Auto(un)boxing also makes working with the Collections Framework much easier.
+// Note that autoboxing/unboxing might also occur:
+// - when an argument is passed to a method, or when a value is returned by a method
+// - within expressions
 
 public class Main {
 
@@ -64,5 +75,33 @@ public class Main {
         int b = iOb.intValue(); // storing iOb Integer value as int, essentially extracting the value from the wrapper (=unboxing)
         System.out.println("int b value = " + b + "\n"); // displaying int value
 
+        // **********************
+        // Example of type wrapper, using autoboxing/unboxing
+        // **********************
+        // Converting an int value into an Integer object
+        System.out.println("Type wrapper example, using autoboxing/unboxing");
+        int a2 = 10; // setting an int value
+
+        Integer iOb2 = a; // autoboxing - encapsulating the int value into an Integer object wrapper
+        System.out.println("iOb value = " + iOb); // displaying iOb value
+
+        int b2 = iOb; // auto-unboxing - storing iOb Integer value as int
+        System.out.println("int b value = " + b2 + "\n"); // displaying int value
+
+        // **********************
+        // Example of autoboxing/unboxing in method parameters and return value
+        // **********************
+        System.out.println("Autoboxing/unboxing in method parameters and return value");
+        Integer iOb3 = autoboxme(100); // pass an int value to autoboxme() and assign the returned value to an Integer object, autoboxing it
+        System.out.println(iOb3);  //
+    }
+
+    // **********************
+    // Methods used in examples
+    // **********************
+
+    // Autoboxes receives value to Integer
+    static int autoboxme(Integer x) {
+        return x;
     }
 }
