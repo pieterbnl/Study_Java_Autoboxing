@@ -1,5 +1,7 @@
 package com.pbe;
 
+import org.w3c.dom.ls.LSOutput;
+
 /** Study on Autoboxing
  @author Pieter Beernink
  @version 1.0
@@ -57,6 +59,9 @@ package com.pbe;
 // Note that autoboxing/unboxing might also occur:
 // - when an argument is passed to a method, or when a value is returned by a method
 // - within expressions
+//
+// Use of type wrappers should be restricted only to those cases in which an object representation of a primitive type is required.
+// In other cases, always use primitive types. They are most efficient as autoboxing and -unboxing does come with overhead, which is not present in the primitive types.
 
 public class Main {
 
@@ -93,7 +98,79 @@ public class Main {
         // **********************
         System.out.println("Autoboxing/unboxing in method parameters and return value");
         Integer iOb3 = autoboxme(100); // pass an int value to autoboxme() and assign the returned value to an Integer object, autoboxing it
-        System.out.println(iOb3);  //
+        System.out.println(iOb3 + "\n");  //
+
+
+        // **********************
+        // Example of autoboxing/unboxing occurring in expressions
+        // **********************
+        // Autoboxing takes places whenever a conversion into an object or from an object is required.
+        // This includes expressions, where for example a numeric object is automatically unboxed and the outcome of the expression is re-boxed, if needed.
+        System.out.println("Autoboxing/unboxing occurring in expressions");
+        Integer iObA, iObB;
+        int x;
+
+        iObA = 10;
+        System.out.println("Original value iObA is: " + iObA);
+
+        ++iObA; // resulting in automatic unboxing of iOb4, incrementing, and re-boxing back into iOb4
+        System.out.println("After ++iObA, it's value now is: " + iObA);
+
+        iObB = iObA + (iObA / 3);
+        System.out.println("iObB's value after the expression is: " + iObB);
+
+        x = iObA + (iObA / 3);
+        System.out.println("x after expression: " + x + "\n");
+
+        // **********************
+        // Example of standard type promotions and conversions applies with autoboxing
+        // **********************
+        // Autoboxing allows different types of numeric objects in an expression to be mixed
+        System.out.println("Example of autoboxing type promotions and conversions applied");
+        iObA = 100;
+        double dObA = 97.97;
+        System.out.println("dObA is: " + dObA);
+        dObA = dObA + iObA; // Double object dObA and Integer object iObA are used in the same expression, with the result re-boxed and stored in dObA
+        System.out.println("dObA is: " + dObA + "\n");
+
+        // **********************
+        // Example of using an Integer object in a switch statement
+        // **********************
+        // Because of auto-unboxing, an Integer object can be used to control a switch statement
+        System.out.println("Example of integer object used to control a switch statement");
+        iObA = 2;
+        switch(iObA) { // switch statement is evaluated, iObA unboxed and its int value obtained
+            case 1:
+                System.out.println("one");
+                break;
+            case 2:
+                System.out.println("two");
+                break;
+            default:
+                System.out.println("not my day");
+        }
+        System.out.println();
+
+        // **********************
+        // Autoboxing/unboxing Boolean & Character values
+        // **********************
+        System.out.println("Example of autoboxing/unboxing Boolean & Character values");
+        Boolean checkA = true;
+        if(checkA) System.out.println("checkA is true");
+        Character ch = 'a'; // box a char - note to use '' and not "" or a String will be expected
+        char ch2 = ch; // unbox a char
+        System.out.println("ch2 is " + ch2);
+
+        // **********************
+        // Example of autoboxing/unboxing helping prevent errors
+        // **********************
+        // Autoboxing always creates a proper object and auto-unboxing always produces a proper value.
+        // The process will not produce the wrong type of object or value.
+        // If absolutely needed, it's still possible to manually box and unbox values.
+        System.out.println("Example of autoboxing/unboxing Boolean helping prevent error");
+        iObA = 500; // autobox value 500
+        x = iObA.byteValue(); // manually unbox as byte, which will truncate the value stored in iObA, resulting in a garbage value being assigned to x
+        System.out.println(x); // does not display 500
     }
 
     // **********************
